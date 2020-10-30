@@ -4,13 +4,12 @@ import Foundation
 struct ListItem {
     
     let title: String?
-    let bodyText: String?
-    var isComplete: Bool?
+   
+    var isComplete = false
     
-    init(title: String, bodyText: String, completed: Bool){
+    init(title: String, isComplete: Bool){
         self.title = title
-        self.bodyText = bodyText
-        self.isComplete = completed
+        self.isComplete = isComplete
     }
   
     

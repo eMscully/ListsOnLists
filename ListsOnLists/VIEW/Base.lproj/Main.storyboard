@@ -31,7 +31,14 @@
                             <outlet property="delegate" destination="Iog-I9-why" id="5g9-Dd-ZMy"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Lists on Lists!" id="Xkl-KO-SdB"/>
+                    <navigationItem key="navigationItem" title="Lists on Lists!" id="Xkl-KO-SdB">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="UNE-Pj-L6s">
+                            <color key="tintColor" red="0.64804738920000005" green="1" blue="0.66040265809999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="Iog-I9-why" id="mfv-IZ-Rvf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="thB-Lv-JrQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -47,7 +54,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                             <color key="textColor" red="0.80449217559999997" green="0.68360644579999996" blue="0.97570866349999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
                     </navigationBar>
