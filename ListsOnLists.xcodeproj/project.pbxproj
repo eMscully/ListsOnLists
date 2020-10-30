@@ -103,9 +103,9 @@
 		5F5BFD49254BDD86003590FF /* ListsOnLists */ = {
 			isa = PBXGroup;
 			children = (
-				5FDA500C254BE9A2006B373F /* MODEL */,
-				5F5BFD82254BDFDE003590FF /* VIEW */,
-				5F5BFD7E254BDFD2003590FF /* CONTROLLER */,
+				5FDA500C254BE9A2006B373F /* MODELS */,
+				5F5BFD82254BDFDE003590FF /* VIEWS */,
+				5F5BFD7E254BDFD2003590FF /* CONTROLLERS */,
 				5F5BFD83254BDFF1003590FF /* SUPPORT */,
 				5F5BFD58254BDD8B003590FF /* Info.plist */,
 				5F5BFD53254BDD8B003590FF /* Assets.xcassets */,
@@ -131,20 +131,20 @@
 			path = ListsOnListsUITests;
 			sourceTree = "<group>";
 		};
-		5F5BFD7E254BDFD2003590FF /* CONTROLLER */ = {
+		5F5BFD7E254BDFD2003590FF /* CONTROLLERS */ = {
 			isa = PBXGroup;
 			children = (
 				5F5BFD4E254BDD86003590FF /* HomeViewController.swift */,
 			);
-			path = CONTROLLER;
+			path = CONTROLLERS;
 			sourceTree = "<group>";
 		};
-		5F5BFD82254BDFDE003590FF /* VIEW */ = {
+		5F5BFD82254BDFDE003590FF /* VIEWS */ = {
 			isa = PBXGroup;
 			children = (
 				5F5BFD50254BDD86003590FF /* Main.storyboard */,
 			);
-			path = VIEW;
+			path = VIEWS;
 			sourceTree = "<group>";
 		};
 		5F5BFD83254BDFF1003590FF /* SUPPORT */ = {
@@ -157,13 +157,13 @@
 			path = SUPPORT;
 			sourceTree = "<group>";
 		};
-		5FDA500C254BE9A2006B373F /* MODEL */ = {
+		5FDA500C254BE9A2006B373F /* MODELS */ = {
 			isa = PBXGroup;
 			children = (
 				5FDA5007254BE996006B373F /* ListItem.swift */,
 				5FDA5010254BF1C2006B373F /* Categories.swift */,
 			);
-			path = MODEL;
+			path = MODELS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

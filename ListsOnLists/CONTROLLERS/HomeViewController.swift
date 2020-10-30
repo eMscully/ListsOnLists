@@ -3,19 +3,25 @@ import UIKit
 
 class HomeViewController: UITableViewController {
     
-//    var itemListArray = [ListItem]()
- //   var itemListArray = [ListItem(title: "Make fruit smoothie", isComplete: false), ListItem(title: "Give Phe a bath", //isComplete: false), ListItem(title: "Study videos from beginner app dev module", isComplete: true)]
+   var itemListArray = [ListItem]()
+
     
-    var itemListArray = ["Make a fruit smoothie", "Give Phe a bath!", "Study app dev beginner module"]
+   
     
-    let defaults = UserDefaults.standard
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         
+    let listItem = ListItem()
+        listItem.title = "Give Phe a bath!"
+        itemListArray.append(listItem)
         
-        if let items = defaults.array(forKey: "ItemList") as? [String] {
-            itemListArray = items
-        }
+        
+    let listItem2 = ListItem()
+        listItem2.title = "Find a good found-footage horror movie!"
+        itemListArray.append(listItem2)
+     
       
         
     }
@@ -33,11 +39,10 @@ class HomeViewController: UITableViewController {
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             
             
-           // let newItem = ListItem(title: textField.text!, isComplete: false)
-            
-            
-            self.itemListArray.append(textField.text!)
-            self.defaults.set(self.itemListArray, forKey: "ItemList")
+            let newItem = ListItem()
+            newItem.title = textField.text!
+            self.itemListArray.append(newItem)
+           
             self.tableView.reloadData()
         }
         
@@ -61,22 +66,29 @@ override func tableView(_ tableView: UITableView, numberOfRowsInSection section:
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath)
-       // cell.textLabel?.text = itemListArray[indexPath.row].title
-        cell.textLabel?.text = itemListArray[indexPath.row]
+        cell.textLabel?.text = itemListArray[indexPath.row].title
+  
+        //MARK: - EDIT / CONDENSE CODE BY TOGGLING CHECK MARK ACCESSORY AT THIS TIME POINT. DELETE LINES 85-89; BUT MAKE SURE TO RELOAD TABLE VIEW OR ELSE ACCESSORY TYPE WON'T WORK
+        if itemListArray[indexPath.row].isComplete == true {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       
-       
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
+        itemListArray[indexPath.row].isComplete.toggle()
+        
+//        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
+//            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+//        } else {
+//            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+//        }
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        
+        tableView.reloadData()
     }
 }
 
