@@ -5,15 +5,12 @@ import CoreData
 class HomeViewController: UITableViewController {
     
 var itemListArray = [ListItem]()
-  
-//MARK: - STEP 1: CREATE THE CORE DATA CONTEXT ATTRIBUTE AS A GLOBAL VARIABLE THAT IS AN OBJECT OF THE APP DELEGATE CLASS
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
 override func viewDidLoad() {
         super.viewDidLoad()
-        
-     
+    print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
     //MARK: - Table View Methods
         
@@ -48,7 +45,7 @@ override func viewDidLoad() {
             let alert = UIAlertController(title: "Add New Item", message: "", preferredStyle: .alert)
             let action = UIAlertAction(title: "Add", style: .default) { (action) in
                 self.tableView.reloadData()
- //MARK: - STEP 2: REWRITE CODE SO THAT NEW ITEM IS AN NSManaged OBJECT BY USING THE CORE DATA ENTITY'S CONTEXT METHOD AND PASSING IN THE GLOBAL CONTEXT VARIABLE FOR THE ARGUMENT
+
                 let newItem = ListItem(context: self.context)
                 newItem.title = textField.text!
                 newItem.isComplete = false
@@ -69,7 +66,7 @@ override func viewDidLoad() {
         present(alert, animated: true, completion: nil)
         
        }
-    //MARK: - STEP 3: REWRITE SAVE DATA METHOD FROM PREVIOUS NSCODER PERSISTENCE TO CORE DATA CONTAINER PERSISTENCE BY INVOKING THE CONTEXT.SAVE() METHOD FROM APP DELEGATE
+
     func saveData(){
         do {
         try context.save()
