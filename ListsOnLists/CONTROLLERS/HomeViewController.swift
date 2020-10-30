@@ -6,12 +6,13 @@ class HomeViewController: UITableViewController {
     
 var itemListArray = [ListItem]()
 
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+ let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
 override func viewDidLoad() {
         super.viewDidLoad()
  
     loadData()
+    
     }
     //MARK: - Table View Methods
         
@@ -33,7 +34,16 @@ override func viewDidLoad() {
         }
         
         override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-          
+         
+ /* Example of a way to update the context by manipulating NSSharedObject properties.
+             REMEMBER: You always need to invoke the save method after implementing an update. This line of code is updating the text content of the selected cell and replacing the text with "Update".
+             
+             IMPORTANT NOTE~ setting "title" as the key is required because "title" is the attribute name of the ListItem Entity! You cannot name the key anything you want or else the title property of the cell when selected will not change to "Update"....
+                
+             itemListArray[indexPath.row].setValue("Update", forKey: "title")
+           
+             */
+
             itemListArray[indexPath.row].isComplete.toggle()
             saveData()
             tableView.reloadData()
@@ -81,7 +91,8 @@ override func viewDidLoad() {
         let request: NSFetchRequest<ListItem> = ListItem.fetchRequest()
         do {
           itemListArray = try context.fetch(request)
-        } catch {
+        }
+        catch {
             print("Fetch request error: \(error)")
         }
     
