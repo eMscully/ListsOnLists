@@ -10,7 +10,8 @@ var itemListArray = [ListItem]()
 
 override func viewDidLoad() {
         super.viewDidLoad()
-    print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+ 
+    loadData()
     }
     //MARK: - Table View Methods
         
@@ -76,7 +77,13 @@ override func viewDidLoad() {
     }
         self.tableView.reloadData()
     }
-
+    func loadData(){
+        let request: NSFetchRequest<ListItem> = ListItem.fetchRequest()
+        do {
+          itemListArray = try context.fetch(request)
+        } catch {
+            print("Fetch request error: \(error)")
+        }
     
-
+    }
 }
