@@ -1,7 +1,7 @@
 
 import Foundation
 
-class ListItem {
+class ListItem: Codable {
     
     var title: String = ""
     var isComplete: Bool = false
