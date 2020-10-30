@@ -12,35 +12,35 @@ var itemListArray = [ListItem]()
 override func viewDidLoad() {
         super.viewDidLoad()
          
-    loadData()
+  //  loadData()
 
      
     }
 //STEP 2: CREATE AN ENCODER FOR THE DATA YOU WANT TO SAVE AT THE DATA FILE PATH LOCATION YOU CREATED
     //without encoding the data then the appended path component you initiated will not appear yet... it does not show up in app sandbox until there is encoded data to populate it!
     //This method gets called at every time point in your code where data has changed and needs to be saved!!
-    func saveData(){
-        let encoder = PropertyListEncoder()
-        do {
-            let data = try encoder.encode(self.itemListArray)
-            try data.write(to: dataFilePath!)
-        } catch {
-            print("Error saving data: \(error)")
-        }
-    }
+//    func saveData(){
+//        let encoder = PropertyListEncoder()
+//        do {
+//            let data = try encoder.encode(self.itemListArray)
+//            try data.write(to: dataFilePath!)
+//        } catch {
+//            print("Error saving data: \(error)")
+//        }
+//    }
 //STEP 3: CREATE A DECODER FOR THE SAVED DATA SO THAT YOU CAN OBTAIN ALL THE SAVED INFO AT APP RUN TIME.  CALL THIS METHOD IN VIEWDIDLOAD
-    func loadData(){
-        if FileManager.default.fileExists(atPath: dataFilePath!.path){
-            
-            do {
-                let data = try Data(contentsOf: dataFilePath!)
-                let decoder = PropertyListDecoder()
-                itemListArray = try decoder.decode([ListItem].self, from: data)
-            } catch {
-                print("Error decoding saved data: \(error)")
-            }
-    }
-    }
+//    func loadData(){
+//        if FileManager.default.fileExists(atPath: dataFilePath!.path){
+//
+//            do {
+//                let data = try Data(contentsOf: dataFilePath!)
+//                let decoder = PropertyListDecoder()
+//                itemListArray = try decoder.decode([ListItem].self, from: data)
+//            } catch {
+//                print("Error decoding saved data: \(error)")
+//            }
+//    }
+//    }
     
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -52,7 +52,7 @@ override func viewDidLoad() {
                 newItem.title = textField.text!
                 self.itemListArray.append(newItem)
 //STEP 4: SAVE DATA IS CALLED HERE BECAUSE THIS IS THE TIME POINT WHEN A USER HAS ADDED A NEW TO DO LIST ITEM
-                self.saveData()
+             //   self.saveData()
                 self.tableView.reloadData()
         }
         
@@ -90,7 +90,7 @@ override func tableView(_ tableView: UITableView, numberOfRowsInSection section:
       
         itemListArray[indexPath.row].isComplete.toggle()
 //STEP 5: SAVE DATA IS CALLED AGAIN BECAUSE THE USER HAS TOGGLED THE CHECKMARK ACCESSORY DUE TO AN ITEM BEING DONE OR NOT DONE. ANYTIME THE USER CHANGES SOMETHING FROM DONE TO NOT DONE OR VICE VERSA THEN THIS INFO NEEDS TO BE SAVED!!
-        saveData()
+      //  saveData()
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
         
