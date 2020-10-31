@@ -103,12 +103,12 @@
 		5F5BFD49254BDD86003590FF /* ListsOnLists */ = {
 			isa = PBXGroup;
 			children = (
+				5F5BFD53254BDD8B003590FF /* Assets.xcassets */,
+				5F5BFD58254BDD8B003590FF /* Info.plist */,
 				5FDA500C254BE9A2006B373F /* MODELS */,
 				5F5BFD82254BDFDE003590FF /* VIEWS */,
 				5F5BFD7E254BDFD2003590FF /* CONTROLLERS */,
 				5F5BFD83254BDFF1003590FF /* SUPPORT */,
-				5F5BFD58254BDD8B003590FF /* Info.plist */,
-				5F5BFD53254BDD8B003590FF /* Assets.xcassets */,
 			);
 			path = ListsOnLists;
 			sourceTree = "<group>";
