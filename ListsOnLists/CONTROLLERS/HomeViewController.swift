@@ -17,7 +17,6 @@ override func viewDidLoad() {
     
     }
 
-
   @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
             var textField = UITextField()
             let alert = UIAlertController(title: "Add New Item", message: "", preferredStyle: .alert)
@@ -51,15 +50,22 @@ override func viewDidLoad() {
     }
         self.tableView.reloadData()
     }
-    func loadData(){
-        let request: NSFetchRequest<ListItem> = ListItem.fetchRequest()
+    
+    /*
+     Rewrote this function so that it is reusable throughout source code by having a request parameter and providing the request parameter with a DEFAULT VALUE. Writing the function this way does 2 things:
+     1. It eliminates the original hardcoded request and instead makes this method reusable throughout source code because any fetch request configuration can be passed in now;
+     2. By providing the request parameter with a DEFAULT VALUE, this gives the method even more reusability because it can be invoked anywhere in the code regardless of whether the time point at which you invoke the method has a request to pass in or not (i.e. such as in viewDidLoad when you want all the saved data to load up as soon as the app launches... this doesn't require a specific fetch request, it simply is trying to retrieve ALL data. By providing this method's request parameter with a default value, it is now SAFE to invoke this method anywhere throughout the source code because even if you don't have a request argument to pass in then its okay because the request already has a default value. 
+     */
+    func loadData(with request: NSFetchRequest<ListItem> = ListItem.fetchRequest()){
+        
+//        let request: NSFetchRequest<ListItem> = ListItem.fetchRequest()
         do {
           itemListArray = try context.fetch(request)
         }
         catch {
             print("Fetch request error: \(error)")
         }
-    
+        tableView.reloadData()
     }
 }
 //MARK: - EXTENSION FOR TABLE VIEW DELEGATE AND DATA SOURCE METHODS:
@@ -95,63 +101,39 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
 //MARK: - EXTENSION FOR SEARCH BAR DELEGATE METHODS
 extension HomeViewController: UISearchBarDelegate {
     
-    // This is the first search bar delegate method you should invoke because when its triggered it officially begins "the search" (aka enables you to work with the feedback you're getting from user interaction. This is also the time point where you should query the database and try to retrieve the data the user is looking for
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // Step 1: In order to read data in the database (and specifically retrieve the stored data that matches the user's query) you need to create a new NSFetchRequest:
-   
+        
         let request: NSFetchRequest<ListItem> = ListItem.fetchRequest()
         
-        //Step 2: Now that the request object is created, write code that MODIFIES the request based on the user's search query. In order to query objects using Core Data you need to use NSPredicate. NSPredicate applies logical conditions and essentially structures the query request based on data comparisons and String format comparisons:
+    //REFACTORING --->  get rid of the predicate constant and pass it in as the request.predicate's value instead:
+    
+        //DELETE....  let predicate = NSPredicate(format: "title CONTAINS %@", searchBar.text!)
+      
         
-        let predicate = NSPredicate(format: "title CONTAINS %@", searchBar.text!)
+        //New code:
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
         
-        //Step 3: Now that the query structure is complete, ADD the query predicate to the request:
         
-        request.predicate = predicate
+        //REFACTOR the sort descriptor code the same way; delete the sort descriptor constant and pass it in as the request.sortDescriptors value instead
         
-        //Step 4: To SORT the data that is returned from the fetch request into, you can customize how the data is ordered by using an NSSortDescriptor:
+      //DELETE....  let sortDescriptor = NSSortDescriptor(key: "title", ascending: false)
         
-        let sortDescriptor = NSSortDescriptor(key: "title", ascending: false)
-                                                            //NOTE: ^ ascending means alphabetical. if true then the table view list will be alphabetically ordered
         
-        //Step 5: You need to add the sort descriptor to the request (just like you needed to add the predicate to the request:
+        //New code:
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: false)]
         
-        request.sortDescriptors = [sortDescriptor]
+// REFACTORING ---> See notes above; rewrote the original loadData() method so that it is now reusable throughout source code and takes in a specified fetch request. The code below can be replaced with loadData(with: request)
+//        do {
+//            itemListArray = try context.fetch(request)
+//        } catch {
+//            print("Error retrieving queried data: \(error)")
+//        }
+//        tableView.reloadData()
         
-        //Step 6: Now that the request is officially configured and ready, invoke the fetch method to retrieve saved data that matches the request specified
-        
-        do {
-            itemListArray = try context.fetch(request)
-        } catch {
-            print("Error retrieving queried data: \(error)")
-        }
-        tableView.reloadData()
+        loadData(with: request)
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        <#code#>
-//    }
-//    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-//        <#code#>
-//    }
-//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        <#code#>
-//    }
-//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        <#code#>
-//    }
-//    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        <#code#>
-//    }
 }
+ 
+
