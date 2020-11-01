@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5F126371254C57EC00E2DEF7 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F12636F254C57EC00E2DEF7 /* DataModel.xcdatamodeld */; };
+		5F1B0ED5254EA0EE00855BD1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B0ED4254EA0EE00855BD1 /* CategoryViewController.swift */; };
+		5F1B0EDD254EB45C00855BD1 /* DataModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B0EDC254EB45C00855BD1 /* DataModelManager.swift */; };
 		5F5BFD4B254BDD86003590FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BFD4A254BDD86003590FF /* AppDelegate.swift */; };
 		5F5BFD4D254BDD86003590FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BFD4C254BDD86003590FF /* SceneDelegate.swift */; };
 		5F5BFD4F254BDD86003590FF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BFD4E254BDD86003590FF /* HomeViewController.swift */; };
@@ -16,7 +18,6 @@
 		5F5BFD57254BDD8B003590FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F5BFD55254BDD8B003590FF /* LaunchScreen.storyboard */; };
 		5F5BFD62254BDD8B003590FF /* ListsOnListsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BFD61254BDD8B003590FF /* ListsOnListsTests.swift */; };
 		5F5BFD6D254BDD8B003590FF /* ListsOnListsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BFD6C254BDD8B003590FF /* ListsOnListsUITests.swift */; };
-		5FDA5011254BF1C2006B373F /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDA5010254BF1C2006B373F /* Categories.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		5F126370254C57EC00E2DEF7 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		5F1B0ED4254EA0EE00855BD1 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		5F1B0EDC254EB45C00855BD1 /* DataModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelManager.swift; sourceTree = "<group>"; };
 		5F5BFD47254BDD86003590FF /* ListsOnLists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ListsOnLists.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F5BFD4A254BDD86003590FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F5BFD4C254BDD86003590FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,7 +55,6 @@
 		5F5BFD68254BDD8B003590FF /* ListsOnListsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ListsOnListsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F5BFD6C254BDD8B003590FF /* ListsOnListsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsOnListsUITests.swift; sourceTree = "<group>"; };
 		5F5BFD6E254BDD8B003590FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5FDA5010254BF1C2006B373F /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				5F5BFD4E254BDD86003590FF /* HomeViewController.swift */,
+				5F1B0ED4254EA0EE00855BD1 /* CategoryViewController.swift */,
 			);
 			path = CONTROLLERS;
 			sourceTree = "<group>";
@@ -161,7 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				5F12636F254C57EC00E2DEF7 /* DataModel.xcdatamodeld */,
-				5FDA5010254BF1C2006B373F /* Categories.swift */,
+				5F1B0EDC254EB45C00855BD1 /* DataModelManager.swift */,
 			);
 			path = MODELS;
 			sourceTree = "<group>";
@@ -297,9 +300,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F5BFD4F254BDD86003590FF /* HomeViewController.swift in Sources */,
-				5FDA5011254BF1C2006B373F /* Categories.swift in Sources */,
+				5F1B0EDD254EB45C00855BD1 /* DataModelManager.swift in Sources */,
 				5F126371254C57EC00E2DEF7 /* DataModel.xcdatamodeld in Sources */,
 				5F5BFD4B254BDD86003590FF /* AppDelegate.swift in Sources */,
+				5F1B0ED5254EA0EE00855BD1 /* CategoryViewController.swift in Sources */,
 				5F5BFD4D254BDD86003590FF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
