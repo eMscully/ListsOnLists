@@ -4,17 +4,19 @@ import CoreData
 
 class HomeViewController: UITableViewController {
     
-    @IBOutlet weak var searchBar: UISearchBar!
+@IBOutlet weak var searchBar: UISearchBar!
     
 var itemListArray = [ListItem]()
 
- let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
 override func viewDidLoad() {
-        super.viewDidLoad()
+    super.viewDidLoad()
  
     loadData()
     
+    //MARK: - Set search bar as first responder in view did load so that the search text field is focused and has a blinking cursor
+    searchBar.becomeFirstResponder()
     }
 
   @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -51,14 +53,11 @@ override func viewDidLoad() {
         self.tableView.reloadData()
     }
     
-    /*
-     Rewrote this function so that it is reusable throughout source code by having a request parameter and providing the request parameter with a DEFAULT VALUE. Writing the function this way does 2 things:
-     1. It eliminates the original hardcoded request and instead makes this method reusable throughout source code because any fetch request configuration can be passed in now;
-     2. By providing the request parameter with a DEFAULT VALUE, this gives the method even more reusability because it can be invoked anywhere in the code regardless of whether the time point at which you invoke the method has a request to pass in or not (i.e. such as in viewDidLoad when you want all the saved data to load up as soon as the app launches... this doesn't require a specific fetch request, it simply is trying to retrieve ALL data. By providing this method's request parameter with a default value, it is now SAFE to invoke this method anywhere throughout the source code because even if you don't have a request argument to pass in then its okay because the request already has a default value. 
-     */
+
+                                                            //parameter's default value:
     func loadData(with request: NSFetchRequest<ListItem> = ListItem.fetchRequest()){
         
-//        let request: NSFetchRequest<ListItem> = ListItem.fetchRequest()
+
         do {
           itemListArray = try context.fetch(request)
         }
@@ -83,7 +82,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
         let item = itemListArray[indexPath.row]
         cell.textLabel?.text = item.title
   
-        // USING TERNARY OPERATOR FOR SHORTER CODE:
+  
         cell.accessoryType = item.isComplete ? .checkmark : .none
 
         return cell
@@ -103,37 +102,38 @@ extension HomeViewController: UISearchBarDelegate {
     
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.enablesReturnKeyAutomatically = true
         
         let request: NSFetchRequest<ListItem> = ListItem.fetchRequest()
-        
-    //REFACTORING --->  get rid of the predicate constant and pass it in as the request.predicate's value instead:
-    
-        //DELETE....  let predicate = NSPredicate(format: "title CONTAINS %@", searchBar.text!)
-      
-        
-        //New code:
+
         request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-        
-        
-        //REFACTOR the sort descriptor code the same way; delete the sort descriptor constant and pass it in as the request.sortDescriptors value instead
-        
-      //DELETE....  let sortDescriptor = NSSortDescriptor(key: "title", ascending: false)
-        
-        
-        //New code:
+
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: false)]
-        
-// REFACTORING ---> See notes above; rewrote the original loadData() method so that it is now reusable throughout source code and takes in a specified fetch request. The code below can be replaced with loadData(with: request)
-//        do {
-//            itemListArray = try context.fetch(request)
-//        } catch {
-//            print("Error retrieving queried data: \(error)")
-//        }
-//        tableView.reloadData()
-        
+
         loadData(with: request)
     }
     
+  
+    //MARK: - This search bar delegate method acts as a listener/observer of all action that occurs in the search bar field and is triggered every time a change is made in real-time. You can isolate particular time points as needed by your app inside this method.
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+      
+        //This line of code is saying that when the "character"/letter count in the search textfield is zero then the table view list should reload and list all items again instead of the shortened list from the user's old search query.
+        
+        //NOTE that the PLACEHOLDER TEXT count is separate from the search bar's "TEXT" count. The code below will work as it should even though technically the search bar appears to have content in it still due to the placeholder text. if there's technically "text" in the search bar because it is seaparate from PLACEHOLDER TEXT.
+        if searchBar.text?.count == 0 {
+            loadData()
+            
+            // To dismiss the keyboard and the search bar text field's blinking cursor you need to resign the search bar as the first responder.    IMPORTANT NOTE --> Whenever your app is actively in session, it is good practice to grab a reference to the main view controller whenever you are writing code that directly effects the UI appearance and properties to ensure that You should grab a reference to the main view controller anytime you're writing code that effects the UI view while app is actively in session
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+           
+            
+        }
+    }
+
+
 }
  
 
