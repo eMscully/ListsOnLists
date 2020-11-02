@@ -1,13 +1,15 @@
 
 import Foundation
 import UIKit
-import CoreData
+import RealmSwift
 
 class CategoryViewController: UITableViewController {
     
-    var categories = [Category]()
-    var dataManager = DataModelManager.shared
-    let context = DataModelManager.shared.context
+    
+//   private let realm = try! Realm()
+ 
+   private var categories = [Category]()
+    private var category = Category()
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -19,8 +21,9 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+ 
         
-       loadCategories()
+//       loadCategories()
         
   
     }
@@ -32,28 +35,24 @@ class CategoryViewController: UITableViewController {
     }
     
     
-    func saveCategory(){
-        do {
-            try context.save()
-        } catch {
-            print("Error loading saved items list due to: \(error)")
-        }
-        tableView.reloadData()
-    }
+//    func save(category: Category){
+//
+//        do {
+//            try realm.write {
+//
+//                realm.add(category)
+//        }
+//    }
+//        catch {
+//            print("Error saving category: \(error)")
+//        }
+//        tableView.reloadData()
+//    }
+    
+//    func loadData(){
+//
+//    }
 
-    
-    func loadCategories(using request:  NSFetchRequest<Category> = Category.fetchRequest()) {
-        
-        do {
-            categories = try context.fetch(request)
-        }
-        catch {
-            print("Error loading category list: \(error)")
-        }
-        tableView.reloadData()
-    }
-    
-    
 }
 //MARK: - Created a UIAlert text field in extension to break up code. The method is invoked when add new category button is pressed.
 extension CategoryViewController {
@@ -65,12 +64,13 @@ extension CategoryViewController {
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             self.tableView.reloadData()
             
-            let newCategory = Category(context: self.context)
+            let newCategory = Category()
             newCategory.categoryName = textField.text!
             self.categories.append(newCategory)
+            self.category.save(category: newCategory)
+            self.tableView.reloadData()
             
-            
-            self.saveCategory()
+          //  self.save(category: newCategory)
             
         }
         alert.addTextField { (alertTextField) in

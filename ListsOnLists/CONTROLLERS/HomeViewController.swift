@@ -1,6 +1,6 @@
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class HomeViewController: UITableViewController {
     
@@ -8,15 +8,17 @@ class HomeViewController: UITableViewController {
     
     @IBOutlet weak var backButtonPressed: UIBarButtonItem!
     
+ 
+    private var item = ListItem()
     var items = [ListItem]()
     var selectedCategory: Category? {
         didSet {
-            loadList()
+      //      loadList()
             tableView.reloadData()
         }
     }
-    var dataManager = DataModelManager.shared
-    let context = DataModelManager.shared.context
+  //  var dataManager = DataModelManager.shared
+//    let context = DataModelManager.shared.context
    
 
 override func viewDidLoad() {
@@ -36,14 +38,14 @@ override func viewDidLoad() {
             let action = UIAlertAction(title: "Add", style: .default) { (action) in
                 self.tableView.reloadData()
             
-                let newItem = ListItem(context: self.context)
+                let newItem = ListItem()
                 newItem.title = textField.text!
                 newItem.isComplete = false
-                newItem.parentCategory = self.selectedCategory
+         //       newItem.parentCategory = self.selectedCategory
                 self.items.append(newItem)
                
                 
-                self.saveList()
+                self.item.save(item: newItem)
                 
             }
         
@@ -60,34 +62,34 @@ override func viewDidLoad() {
 
    //MARK: - CREATED A BRAND NEW CORE DATA READ FUNCTION FOR USE WHEN VIEW INITIALLY LOADS UP. EVERYWHERE ELSE IN MY CODE I AM USING THE DATA MODEL MANAGER SINGLETON READ METHOD INSTEAD**. OFFICIALLY DEBUGGED CCODE SINCE LAST GIT COMMIT!
    
-    func loadList(using request: NSFetchRequest<ListItem> = ListItem.fetchRequest(), predicate: NSPredicate? = nil){
-       
-       
-        let categoryPredicate = NSPredicate(format: "parentCategory.categoryName MATCHES[cd] %@", selectedCategory!.categoryName!)
-        
-        if let additionalPredicate = predicate {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
-        } else {
-            request.predicate = categoryPredicate
-        }
-
-        do {
-         items = try context.fetch(request)
-        }
-        catch {
-            print("Fetch request error: \(error)")
-        }
-        tableView.reloadData()
-    }
+//    func loadList(using request: NSFetchRequest<ListItem> = ListItem.fetchRequest(), predicate: NSPredicate? = nil){
+//
+//
+//        let categoryPredicate = NSPredicate(format: "parentCategory.categoryName MATCHES[cd] %@", selectedCategory!.categoryName!)
+//
+//        if let additionalPredicate = predicate {
+//            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
+//        } else {
+//            request.predicate = categoryPredicate
+//        }
+//
+//        do {
+//         items = try context.fetch(request)
+//        }
+//        catch {
+//            print("Fetch request error: \(error)")
+//        }
+//        tableView.reloadData()
+//    }
     
-    func saveList(){
-        do {
-            try context.save()
-        } catch {
-            print("Error loading saved items list due to: \(error)")
-        }
-        tableView.reloadData()
-    }
+//    func saveList(){
+//        do {
+//            try context.save()
+//        } catch {
+//            print("Error loading saved items list due to: \(error)")
+//        }
+//        tableView.reloadData()
+//    }
 }
 //MARK: - EXTENSION FOR TABLE VIEW DELEGATE AND DATA SOURCE METHODS:
 
@@ -113,7 +115,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
      
         items[indexPath.row].isComplete.toggle()
-        loadList()
+       // loadList()
 
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -126,12 +128,12 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.enablesReturnKeyAutomatically = true
         
-        let request: NSFetchRequest<ListItem> = ListItem.fetchRequest()
-
-        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-        request.predicate = predicate
-        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-        self.loadList(using: request, predicate: predicate)
+//        let request: NSFetchRequest<ListItem> = ListItem.fetchRequest()
+//
+//        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+//        request.predicate = predicate
+//        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+//        self.loadList(using: request, predicate: predicate)
 
     }
     
@@ -140,7 +142,7 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
  
         if searchBar.text?.count == 0 {
-            loadList()
+       //     loadList()
             
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
