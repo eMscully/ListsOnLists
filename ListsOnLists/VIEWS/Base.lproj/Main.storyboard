@@ -10,7 +10,7 @@
         <!--Lists on Lists!-->
         <scene sceneID="LNz-W0-DYY">
             <objects>
-                <tableViewController interfaceStyle="dark" id="Iog-I9-why" customClass="HomeViewController" customModule="ListsOnLists" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Iog-I9-why" customClass="ItemViewController" customModule="ListsOnLists" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="foS-uU-Smo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -19,7 +19,6 @@
                         <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search items..." id="fUr-hF-rgs">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="barTintColor" red="0.80436737187698437" green="0.70525576924472877" blue="0.99063801315595523" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
                                 <outlet property="delegate" destination="Iog-I9-why" id="nNK-zb-4MN"/>
@@ -32,10 +31,8 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0tl-VA-zdW" id="dYI-my-iYN">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" red="0.64804738920000005" green="1" blue="0.66040265809999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -45,7 +42,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Lists on Lists!" id="Xkl-KO-SdB">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="UNE-Pj-L6s">
-                            <color key="tintColor" red="0.64804738920000005" green="1" blue="0.66040265809999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="tintColor" red="0.48616170879999998" green="0.18648374079999999" blue="0.43531203270000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="addButtonPressed:" destination="Iog-I9-why" id="mfv-IZ-Rvf"/>
                             </connections>
@@ -57,33 +54,74 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="thB-Lv-JrQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-125" y="-933"/>
+            <point key="canvasLocation" x="-2293" y="-1598"/>
+        </scene>
+        <!--Lists on Lists-->
+        <scene sceneID="otB-dG-4Gf">
+            <objects>
+                <tableViewController id="Wcv-hg-YEZ" customClass="CategoryViewController" customModule="ListsOnLists" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" estimatedRowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" id="5ku-X5-WaC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" rowHeight="75" id="JqQ-lw-5zf">
+                                <rect key="frame" x="0.0" y="28" width="414" height="75"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JqQ-lw-5zf" id="lPc-Gn-3Wv">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Wcv-hg-YEZ" id="KsE-oY-EGH"/>
+                            <outlet property="delegate" destination="Wcv-hg-YEZ" id="hNo-hR-yzr"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Lists on Lists" id="nLx-0R-fw1">
+                        <barButtonItem key="rightBarButtonItem" image="plus.viewfinder" catalog="system" id="ijf-ka-WGf">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="Wcv-hg-YEZ" id="pge-Hk-Teu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="Iog-I9-why" kind="show" identifier="goToListItems" id="hdh-YN-h4e"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gaK-cW-giF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3041" y="-1598"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="60i-nW-ff2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d3g-Cb-V4K" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jkS-Rf-Ysu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" backIndicatorImage="chevron.backward" catalog="system" id="jkS-Rf-Ysu">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.48616170879999998" green="0.18648374079999999" blue="0.43531203270000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                            <color key="textColor" red="0.80449217559999997" green="0.68360644579999996" blue="0.97570866349999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" red="0.48616170879999998" green="0.18648374079999999" blue="0.43531203270000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Iog-I9-why" kind="relationship" relationship="rootViewController" id="553-IB-8dw"/>
+                        <segue destination="Wcv-hg-YEZ" kind="relationship" relationship="rootViewController" id="vwG-2p-jbc"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0fV-0Y-g3I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-855" y="-933"/>
+            <point key="canvasLocation" x="-3926" y="-1598"/>
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.backward" catalog="system" width="96" height="128"/>
+        <image name="plus.viewfinder" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
