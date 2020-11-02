@@ -9,6 +9,13 @@ class CategoryViewController: UITableViewController {
     var dataManager = DataModelManager.shared
     let context = DataModelManager.shared.context
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        navigationController?.navigationItem.leftBarButtonItem = nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

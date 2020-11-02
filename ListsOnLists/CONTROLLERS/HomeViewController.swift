@@ -6,7 +6,8 @@ class HomeViewController: UITableViewController {
     
 @IBOutlet weak var searchBar: UISearchBar!
     
-
+    @IBOutlet weak var backButtonPressed: UIBarButtonItem!
+    
     var items = [ListItem]()
     var selectedCategory: Category? {
         didSet {
@@ -21,7 +22,7 @@ class HomeViewController: UITableViewController {
 override func viewDidLoad() {
     super.viewDidLoad()
    
-
+    
     
     
     //MARK: - Set search bar as first responder in view did load so that the search text field is focused and has a blinking cursor
@@ -59,7 +60,16 @@ override func viewDidLoad() {
 
    //MARK: - CREATED A BRAND NEW CORE DATA READ FUNCTION FOR USE WHEN VIEW INITIALLY LOADS UP. EVERYWHERE ELSE IN MY CODE I AM USING THE DATA MODEL MANAGER SINGLETON READ METHOD INSTEAD**. OFFICIALLY DEBUGGED CCODE SINCE LAST GIT COMMIT!
    
-    func loadList(using request: NSFetchRequest<ListItem> = ListItem.fetchRequest()){
+    func loadList(using request: NSFetchRequest<ListItem> = ListItem.fetchRequest(), predicate: NSPredicate? = nil){
+       
+       
+        let categoryPredicate = NSPredicate(format: "parentCategory.categoryName MATCHES[cd] %@", selectedCategory!.categoryName!)
+        
+        if let additionalPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
+        } else {
+            request.predicate = categoryPredicate
+        }
 
         do {
          items = try context.fetch(request)
@@ -118,10 +128,10 @@ extension HomeViewController: UISearchBarDelegate {
         
         let request: NSFetchRequest<ListItem> = ListItem.fetchRequest()
 
-        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-
-        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: false)]
-        self.loadList(using: request)
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        request.predicate = predicate
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        self.loadList(using: request, predicate: predicate)
 
     }
     
