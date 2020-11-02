@@ -1,6 +1,7 @@
 
 import UIKit
 import RealmSwift
+import SwipeCellKit
 
 class ItemViewController: UITableViewController {
     
@@ -59,15 +60,42 @@ override func viewDidLoad() {
 }
 //MARK: - EXTENSION FOR TABLE VIEW DELEGATE AND DATA SOURCE METHODS:
 
-extension ItemViewController {
-    
+extension ItemViewController: SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil}
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+            
+            if let deletedItem = self.itemsList?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    
+                    self.realm.delete(deletedItem)
+                }
+                }
+             catch {
+                print("Swipe action error, deletion failed: \(error)")
+            
+        }
+            }
+        }
+        deleteAction.image = UIImage(named: "trash")
+        return [deleteAction]
+
+    }
+          
+        
+
+         
+
 override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemsList?.count ?? 1
     }
     
 override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath)
-        cell.textLabel?.textColor = #colorLiteral(red: 0.5273327231, green: 0.1593059003, blue: 0.4471139908, alpha: 1)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as!SwipeTableViewCell
+    cell.delegate = self
+    
     
     
     if let item = itemsList?[indexPath.row] {

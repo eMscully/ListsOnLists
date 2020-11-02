@@ -17,10 +17,10 @@
 		5F5BFD4D254BDD86003590FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BFD4C254BDD86003590FF /* SceneDelegate.swift */; };
 		5F5BFD4F254BDD86003590FF /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BFD4E254BDD86003590FF /* ItemViewController.swift */; };
 		5F5BFD52254BDD86003590FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F5BFD50254BDD86003590FF /* Main.storyboard */; };
-		5F5BFD54254BDD8B003590FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F5BFD53254BDD8B003590FF /* Assets.xcassets */; };
 		5F5BFD57254BDD8B003590FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F5BFD55254BDD8B003590FF /* LaunchScreen.storyboard */; };
 		5F5BFD62254BDD8B003590FF /* ListsOnListsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BFD61254BDD8B003590FF /* ListsOnListsTests.swift */; };
 		5F5BFD6D254BDD8B003590FF /* ListsOnListsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BFD6C254BDD8B003590FF /* ListsOnListsUITests.swift */; };
+		5FB6ECFF25505F3A00F22621 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FB6ECFE25505F3A00F22621 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +53,6 @@
 		5F5BFD4C254BDD86003590FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5F5BFD4E254BDD86003590FF /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
 		5F5BFD51254BDD86003590FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5F5BFD53254BDD8B003590FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F5BFD56254BDD8B003590FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F5BFD58254BDD8B003590FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F5BFD5D254BDD8B003590FF /* ListsOnListsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ListsOnListsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +61,7 @@
 		5F5BFD68254BDD8B003590FF /* ListsOnListsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ListsOnListsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F5BFD6C254BDD8B003590FF /* ListsOnListsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsOnListsUITests.swift; sourceTree = "<group>"; };
 		5F5BFD6E254BDD8B003590FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5FB6ECFE25505F3A00F22621 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		67443894A7587D5F517E1026 /* Pods-ListsOnListsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListsOnListsTests.release.xcconfig"; path = "Target Support Files/Pods-ListsOnListsTests/Pods-ListsOnListsTests.release.xcconfig"; sourceTree = "<group>"; };
 		8D56D80C9BB0A2F8A870543F /* Pods-ListsOnLists.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListsOnLists.debug.xcconfig"; path = "Target Support Files/Pods-ListsOnLists/Pods-ListsOnLists.debug.xcconfig"; sourceTree = "<group>"; };
 		B49DE9FB1B9D54B1CCD20465 /* Pods-ListsOnLists-ListsOnListsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListsOnLists-ListsOnListsUITests.debug.xcconfig"; path = "Target Support Files/Pods-ListsOnLists-ListsOnListsUITests/Pods-ListsOnLists-ListsOnListsUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 		5F5BFD49254BDD86003590FF /* ListsOnLists */ = {
 			isa = PBXGroup;
 			children = (
-				5F5BFD53254BDD8B003590FF /* Assets.xcassets */,
+				5FB6ECFE25505F3A00F22621 /* Assets.xcassets */,
 				5F5BFD58254BDD8B003590FF /* Info.plist */,
 				5FDA500C254BE9A2006B373F /* MODELS */,
 				5F5BFD82254BDFDE003590FF /* VIEWS */,
@@ -318,7 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F5BFD57254BDD8B003590FF /* LaunchScreen.storyboard in Resources */,
-				5F5BFD54254BDD8B003590FF /* Assets.xcassets in Resources */,
+				5FB6ECFF25505F3A00F22621 /* Assets.xcassets in Resources */,
 				5F5BFD52254BDD86003590FF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

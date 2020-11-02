@@ -2,6 +2,7 @@
 import Foundation
 import UIKit
 import RealmSwift
+import SwipeCellKit
 
 class CategoryViewController: UITableViewController {
 
@@ -64,20 +65,60 @@ extension CategoryViewController {
 }
 //MARK: - Table View Datasource and Delegate Methods
 
-extension CategoryViewController {
+extension CategoryViewController: SwipeTableViewCellDelegate {
+ 
+    //MARK: - Swipe Table View Cell delegate method (DESTRUCTIVE)
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            
+            
+            if let deleteCategory = self.categories?[indexPath.row] {
+            
+            do {
+              try self.realm.write {
+                self.realm.delete(deleteCategory)
+                }
+      
+            } catch {
+                print("Error deleting cell: \(error)")
+            }
+        }
+    }
+        
+        deleteAction.image = UIImage(named: "trash")
+        return [deleteAction]
+            }
+        
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .destructive
+        
+        return options
+    }
+
+
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        cell.textLabel?.textColor = #colorLiteral(red: 0.5273327231, green: 0.1593059003, blue: 0.4471139908, alpha: 1)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
         
         cell.textLabel?.text = categories?[indexPath.row].categoryName ?? "No categories added yet"
         
         return cell
     }
+    
+
+   
+
+
+    
   //MARK: - Storyboard Segue at selected cell
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //when user selects category this method should trigger a segue to the item list view controller that corresponds to its parent category

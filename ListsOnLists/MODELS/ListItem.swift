@@ -7,8 +7,7 @@ class ListItem: Object {
     @objc dynamic var isComplete: Bool = false
     @objc dynamic var dateCreated: Date?
     
-    
-    //declare inverse relationship:                                                     //property argument is the name of the forward relationship
+    //Inverse relationship linking list item back with its parent category
     var parentCategory = LinkingObjects(fromType: Category.self, property: "items")
 
 }
