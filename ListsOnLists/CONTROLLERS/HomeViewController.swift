@@ -6,19 +6,22 @@ class HomeViewController: UITableViewController {
     
 @IBOutlet weak var searchBar: UISearchBar!
     
-//var itemListArray = [ListItem]()
 
-    var itemListArray = DataModelManager.shared.items
+// var itemListArray = DataModelManager.shared.items
+//let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    var items = [ListItem]()
     var dataManager = DataModelManager.shared
+    let context = DataModelManager.shared.context
    
-let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+   
 
 override func viewDidLoad() {
     super.viewDidLoad()
- 
-    dataManager.loadListItems()
+
+    loadList()
     tableView.reloadData()
+    
     
  //   loadData()
     
@@ -32,11 +35,10 @@ override func viewDidLoad() {
             let action = UIAlertAction(title: "Add", style: .default) { (action) in
                 self.tableView.reloadData()
             
-                let newItem = ListItem(context: self.dataManager.context)
-//                let newItem = ListItem(context: self.context)
+                let newItem = ListItem(context: self.context)
                 newItem.title = textField.text!
                 newItem.isComplete = false
-                self.itemListArray.append(newItem)
+                self.items.append(newItem)
                
                 
                 self.dataManager.saveData()
@@ -54,7 +56,7 @@ override func viewDidLoad() {
         present(alert, animated: true, completion: nil)
         
     }
-////MARK: - Core Data create and read methods:
+
 //    func saveData(){
 //        do {
 //        try context.save()
@@ -66,32 +68,33 @@ override func viewDidLoad() {
 //    }
 //
 //
-//                                                            //parameter's default value:
-//    func loadData(with request: NSFetchRequest<ListItem> = ListItem.fetchRequest()){
-//
-//
-//        do {
-//          itemListArray = try context.fetch(request)
-//        }
-//        catch {
-//            print("Fetch request error: \(error)")
-//        }
-//        tableView.reloadData()
-//    }
+   //MARK: - CREATED A BRAND NEW CORE DATA READ FUNCTION FOR USE WHEN VIEW INITIALLY LOADS UP. EVERYWHERE ELSE IN MY CODE I AM USING THE DATA MODEL MANAGER SINGLETON READ METHOD INSTEAD**. OFFICIALLY DEBUGGED CCODE SINCE LAST GIT COMMIT!
+    //parameter's default value:
+    func loadList(with request: NSFetchRequest<ListItem> = ListItem.fetchRequest()){
+
+
+        do {
+         items = try context.fetch(request)
+        }
+        catch {
+            print("Fetch request error: \(error)")
+        }
+        tableView.reloadData()
+    }
 }
 //MARK: - EXTENSION FOR TABLE VIEW DELEGATE AND DATA SOURCE METHODS:
 
 extension HomeViewController {
     
 override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemListArray.count
+        return items.count
     }
     
 override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath)
         cell.textLabel?.textColor = #colorLiteral(red: 0.8044921756, green: 0.6836064458, blue: 0.9757086635, alpha: 1)
     
-        let item = itemListArray[indexPath.row]
+        let item = items[indexPath.row]
         cell.textLabel?.text = item.title
   
   
@@ -102,7 +105,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
      
-        itemListArray[indexPath.row].isComplete.toggle()
+        items[indexPath.row].isComplete.toggle()
         dataManager.saveData()
         
        // saveData()
