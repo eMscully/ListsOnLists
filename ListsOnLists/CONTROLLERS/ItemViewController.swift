@@ -1,9 +1,9 @@
 
 import UIKit
 import RealmSwift
-import SwipeCellKit
 
-class ItemViewController: UITableViewController {
+
+class ItemViewController: SwipeTableViewController {
     
 @IBOutlet weak var searchBar: UISearchBar!
 
@@ -58,46 +58,15 @@ override func viewDidLoad() {
         present(alert, animated: true, completion: nil)
 }
 }
-//MARK: - EXTENSION FOR TABLE VIEW DELEGATE AND DATA SOURCE METHODS:
 
-extension ItemViewController: SwipeTableViewCellDelegate {
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        guard orientation == .right else { return nil}
-        
-        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
-            
-            if let deletedItem = self.itemsList?[indexPath.row] {
-            do {
-                try self.realm.write {
-                    
-                    self.realm.delete(deletedItem)
-                }
-                }
-             catch {
-                print("Swipe action error, deletion failed: \(error)")
-            
-        }
-            }
-        }
-        deleteAction.image = UIImage(named: "trash")
-        return [deleteAction]
-
-    }
-          
-        
-
-         
-
+extension ItemViewController {
 override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemsList?.count ?? 1
     }
     
 override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as!SwipeTableViewCell
-    cell.delegate = self
-    
-    
-    
+    let cell = super.tableView(tableView, cellForRowAt: indexPath)
+     
     if let item = itemsList?[indexPath.row] {
         cell.textLabel?.text = item.title
         cell.accessoryType = item.isComplete ? .checkmark : .none
@@ -123,6 +92,7 @@ override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: Inde
         
     }
 }
+
 //MARK: - EXTENSION FOR SEARCH BAR DELEGATE METHODS
 extension ItemViewController: UISearchBarDelegate {
     
