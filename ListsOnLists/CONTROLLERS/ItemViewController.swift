@@ -73,16 +73,29 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
     if let item = itemsList?[indexPath.row] {
         cell.textLabel?.text = item.title
         cell.accessoryType = item.isComplete ? .checkmark : .none
+    } else {
+        cell.textLabel?.text = "Add first item"
     }
     return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
      
-     // itemsList?[indexPath.row].isComplete.toggle()
-   //     save(item: <#T##ListItem#>)
+        
+        //MARK: - 'UPDATE' USING REALM
+        if let item = itemsList?[indexPath.row] {
+            do {
+                try realm.write{
+                    item.isComplete.toggle()
+                }
+            } catch {
+                print("Error saving item completion state: \(error)")
+            }
+        }
+        
+        tableView.reloadData()
 
-        tableView.deselectRow(at: indexPath, animated: true)
+    tableView.deselectRow(at: indexPath, animated: true)
         
     }
 }
