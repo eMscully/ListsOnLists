@@ -5,45 +5,42 @@ import RealmSwift
 class ItemViewController: UITableViewController {
     
 @IBOutlet weak var searchBar: UISearchBar!
-    
-    @IBOutlet weak var backButtonPressed: UIBarButtonItem!
-    
- 
-    private var item = ListItem()
-    var items = [ListItem]()
+
+    private let realm = try! Realm()
+  
+    private var itemsList: Results<ListItem>?
+   
     var selectedCategory: Category? {
         didSet {
-      //      loadList()
-            tableView.reloadData()
+            loadList()
         }
     }
 
-   
-
 override func viewDidLoad() {
     super.viewDidLoad()
-   
     searchBar.becomeFirstResponder()
     }
     
-
   @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
             var textField = UITextField()
             let alert = UIAlertController(title: "Add New Item", message: "", preferredStyle: .alert)
             let action = UIAlertAction(title: "Add", style: .default) { (action) in
-                self.tableView.reloadData()
-            
-                let newItem = ListItem()
-                newItem.title = textField.text!
-                newItem.isComplete = false
-         //       newItem.parentCategory = self.selectedCategory
-                self.items.append(newItem)
                
                 
-                self.item.save(item: newItem)
-                
+                if let currentCategory = self.selectedCategory {
+                    do {
+                        try self.realm.write {
+                        let newItem = ListItem()
+                        newItem.title = textField.text!
+                        currentCategory.items.append(newItem)
+                        }
+                    } catch {
+                        print("Error saving new item: \(error)")
+                    }
+                }
+                self.tableView.reloadData()
             }
-        
+
         alert.addTextField { (alertTextField) in
            textField = alertTextField
             alertTextField.placeholder = "Create new item"
@@ -53,64 +50,37 @@ override func viewDidLoad() {
             
         present(alert, animated: true, completion: nil)
         
-    }
+}
 
-   //MARK: - CREATED A BRAND NEW CORE DATA READ FUNCTION FOR USE WHEN VIEW INITIALLY LOADS UP. EVERYWHERE ELSE IN MY CODE I AM USING THE DATA MODEL MANAGER SINGLETON READ METHOD INSTEAD**. OFFICIALLY DEBUGGED CCODE SINCE LAST GIT COMMIT!
-   
-//    func loadList(using request: NSFetchRequest<ListItem> = ListItem.fetchRequest(), predicate: NSPredicate? = nil){
-//
-//
-//        let categoryPredicate = NSPredicate(format: "parentCategory.categoryName MATCHES[cd] %@", selectedCategory!.categoryName!)
-//
-//        if let additionalPredicate = predicate {
-//            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
-//        } else {
-//            request.predicate = categoryPredicate
-//        }
-//
-//        do {
-//         items = try context.fetch(request)
-//        }
-//        catch {
-//            print("Fetch request error: \(error)")
-//        }
-//        tableView.reloadData()
-//    }
-    
-//    func saveList(){
-//        do {
-//            try context.save()
-//        } catch {
-//            print("Error loading saved items list due to: \(error)")
-//        }
-//        tableView.reloadData()
-//    }
+   private func loadList(){
+        itemsList = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+        tableView.reloadData()
+       }
+
 }
 //MARK: - EXTENSION FOR TABLE VIEW DELEGATE AND DATA SOURCE METHODS:
 
 extension ItemViewController {
     
 override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return itemsList?.count ?? 1
     }
     
 override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath)
         cell.textLabel?.textColor = #colorLiteral(red: 0.5273327231, green: 0.1593059003, blue: 0.4471139908, alpha: 1)
     
-        let item = items[indexPath.row]
+    if let item = itemsList?[indexPath.row] {
         cell.textLabel?.text = item.title
-  
-  
         cell.accessoryType = item.isComplete ? .checkmark : .none
-
-        return cell
+    }
+    return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
      
-        items[indexPath.row].isComplete.toggle()
-       // loadList()
+     // itemsList?[indexPath.row].isComplete.toggle()
+   //     save(item: <#T##ListItem#>)
 
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -119,35 +89,18 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
 //MARK: - EXTENSION FOR SEARCH BAR DELEGATE METHODS
 extension ItemViewController: UISearchBarDelegate {
     
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.enablesReturnKeyAutomatically = true
-        
-//        let request: NSFetchRequest<ListItem> = ListItem.fetchRequest()
-//
-//        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-//        request.predicate = predicate
-//        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-//        self.loadList(using: request, predicate: predicate)
-
     }
-    
-  
-    //MARK: - This search bar delegate method acts as a listener/observer of all action that occurs in the search bar field and is triggered every time a change is made in real-time. You can isolate particular time points as needed by your app inside this method.
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
- 
-        if searchBar.text?.count == 0 {
-       //     loadList()
-            
-            DispatchQueue.main.async {
-                searchBar.resignFirstResponder()
+         if searchBar.text?.count == 0 {
+                loadList()
+                    DispatchQueue.main.async {
+                        searchBar.resignFirstResponder()
             }
-           
-            
         }
     }
-
-
 }
  
 

@@ -4,47 +4,39 @@ import UIKit
 import RealmSwift
 
 class CategoryViewController: UITableViewController {
+
+     var categories : Results<Category>?
+     var category = Category()
+    let realm = try! Realm()
     
-    
-//   private let realm = try! Realm()
- 
-    private var categories : Results<Category>?
-    private var category = Category()
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        navigationController?.navigationItem.leftBarButtonItem = nil
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadCategories()
 
-        
-  
     }
     
-    func loadCategories(){
+ func loadCategories(){
+        categories = realm.objects(Category.self)
+        tableView.reloadData()
+ }
+    
+    func save(category: Category){
         do {
-            let realm = try Realm()
-            categories = realm.objects(Category.self)
+            try realm.write {
+                realm.add(category)
+            }
         } catch {
-            print("Error loading saved categories: \(error)")
+            print("Error saving category: \(error)")
         }
         tableView.reloadData()
-    
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
         presentAlertTextField()
-        
     }
-
-
 }
 //MARK: - Created a UIAlert text field in extension to break up code. The method is invoked when add new category button is pressed.
 extension CategoryViewController {
@@ -56,13 +48,11 @@ extension CategoryViewController {
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             self.tableView.reloadData()
             
-            let newCategory = Category()
+           let newCategory = Category()
             newCategory.categoryName = textField.text!
             
-            self.category.save(category: newCategory)
-            self.tableView.reloadData()
-            
-            
+            self.save(category: newCategory)
+    
         }
         alert.addTextField { (alertTextField) in
             textField = alertTextField
@@ -84,19 +74,17 @@ extension CategoryViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         cell.textLabel?.textColor = #colorLiteral(red: 0.5273327231, green: 0.1593059003, blue: 0.4471139908, alpha: 1)
         
-        
-        
         cell.textLabel?.text = categories?[indexPath.row].categoryName ?? "No categories added yet"
-        
         
         return cell
     }
-    
+  //MARK: - Storyboard Segue at selected cell
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //when user selects category this method should trigger a segue to the item list view controller that corresponds to its parent category
         
         performSegue(withIdentifier: "goToListItems", sender: self)
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let nextViewController = segue.destination as! ItemViewController
             

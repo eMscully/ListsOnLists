@@ -11,17 +11,4 @@ class Category: Object {
     
 
     
-    func save(category: Category){
-        do {
-            let realm = try Realm()
-            try realm.write {
-                realm.add(category)
-            }
-        } catch {
-            print("Error saving category: \(error)")
-        }
-    }
-    
-
-    
 }
