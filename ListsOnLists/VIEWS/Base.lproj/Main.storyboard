@@ -12,7 +12,7 @@
             <objects>
                 <tableViewController interfaceStyle="dark" id="Iog-I9-why" customClass="HomeViewController" customModule="ListsOnLists" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="foS-uU-Smo">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="786"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <color key="sectionIndexColor" red="0.52817216600000005" green="0.58491689889999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -44,6 +44,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Lists on Lists!" id="Xkl-KO-SdB">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="chevron.backward" catalog="system" id="Eca-hZ-1Du">
+                            <color key="tintColor" red="1" green="0.73048848860000004" blue="0.62507082150000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <segue destination="Wcv-hg-YEZ" kind="popoverPresentation" popoverAnchorBarButtonItem="Eca-hZ-1Du" id="Amu-7F-egj">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="UNE-Pj-L6s">
                             <color key="tintColor" red="0.64804738920000005" green="1" blue="0.66040265809999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
@@ -51,20 +59,21 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="searchBar" destination="fUr-hF-rgs" id="xpi-B6-VfJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="thB-Lv-JrQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-125" y="-933"/>
+            <point key="canvasLocation" x="-1936" y="-1071"/>
         </scene>
         <!--Lists on Lists-->
         <scene sceneID="otB-dG-4Gf">
             <objects>
                 <tableViewController interfaceStyle="dark" id="Wcv-hg-YEZ" customClass="CategoryViewController" customModule="ListsOnLists" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" estimatedRowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" id="5ku-X5-WaC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -96,7 +105,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gaK-cW-giF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1007" y="-1260"/>
+            <point key="canvasLocation" x="-2900" y="-1153"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="60i-nW-ff2">
@@ -115,18 +124,20 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Iog-I9-why" kind="relationship" relationship="rootViewController" id="bGQ-dk-qpK"/>
+                        <segue destination="Wcv-hg-YEZ" kind="relationship" relationship="rootViewController" id="vwG-2p-jbc"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0fV-0Y-g3I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2901" y="-1066"/>
+            <point key="canvasLocation" x="-3591" y="-1153"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="bGQ-dk-qpK"/>
+        <segue reference="kaG-Rp-zXq"/>
+        <segue reference="Amu-7F-egj"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="plus.viewfinder" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -7,27 +7,22 @@ class HomeViewController: UITableViewController {
 @IBOutlet weak var searchBar: UISearchBar!
     
 
-// var itemListArray = DataModelManager.shared.items
-//let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
     var items = [ListItem]()
     var dataManager = DataModelManager.shared
     let context = DataModelManager.shared.context
    
-   
 
 override func viewDidLoad() {
     super.viewDidLoad()
-
+   
     loadList()
     tableView.reloadData()
     
     
- //   loadData()
-    
     //MARK: - Set search bar as first responder in view did load so that the search text field is focused and has a blinking cursor
     searchBar.becomeFirstResponder()
     }
+    
 
   @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
             var textField = UITextField()
@@ -57,21 +52,9 @@ override func viewDidLoad() {
         
     }
 
-//    func saveData(){
-//        do {
-//        try context.save()
-//        }
-//        catch {
-//        print("Error saving context: \(error)")
-//    }
-//        self.tableView.reloadData()
-//    }
-//
-//
    //MARK: - CREATED A BRAND NEW CORE DATA READ FUNCTION FOR USE WHEN VIEW INITIALLY LOADS UP. EVERYWHERE ELSE IN MY CODE I AM USING THE DATA MODEL MANAGER SINGLETON READ METHOD INSTEAD**. OFFICIALLY DEBUGGED CCODE SINCE LAST GIT COMMIT!
-    //parameter's default value:
+   
     func loadList(with request: NSFetchRequest<ListItem> = ListItem.fetchRequest()){
-
 
         do {
          items = try context.fetch(request)
