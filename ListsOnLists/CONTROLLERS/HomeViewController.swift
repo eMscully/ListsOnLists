@@ -8,6 +8,12 @@ class HomeViewController: UITableViewController {
     
 
     var items = [ListItem]()
+    var selectedCategory: Category? {
+        didSet {
+            loadList()
+            tableView.reloadData()
+        }
+    }
     var dataManager = DataModelManager.shared
     let context = DataModelManager.shared.context
    
@@ -15,8 +21,7 @@ class HomeViewController: UITableViewController {
 override func viewDidLoad() {
     super.viewDidLoad()
    
-    loadList()
-    tableView.reloadData()
+
     
     
     //MARK: - Set search bar as first responder in view did load so that the search text field is focused and has a blinking cursor
@@ -33,12 +38,12 @@ override func viewDidLoad() {
                 let newItem = ListItem(context: self.context)
                 newItem.title = textField.text!
                 newItem.isComplete = false
+                newItem.parentCategory = self.selectedCategory
                 self.items.append(newItem)
                
                 
-                self.dataManager.saveData()
-                self.tableView.reloadData()
-                //self.saveData()
+                self.saveList()
+                
             }
         
         alert.addTextField { (alertTextField) in
@@ -54,13 +59,22 @@ override func viewDidLoad() {
 
    //MARK: - CREATED A BRAND NEW CORE DATA READ FUNCTION FOR USE WHEN VIEW INITIALLY LOADS UP. EVERYWHERE ELSE IN MY CODE I AM USING THE DATA MODEL MANAGER SINGLETON READ METHOD INSTEAD**. OFFICIALLY DEBUGGED CCODE SINCE LAST GIT COMMIT!
    
-    func loadList(with request: NSFetchRequest<ListItem> = ListItem.fetchRequest()){
+    func loadList(using request: NSFetchRequest<ListItem> = ListItem.fetchRequest()){
 
         do {
          items = try context.fetch(request)
         }
         catch {
             print("Fetch request error: \(error)")
+        }
+        tableView.reloadData()
+    }
+    
+    func saveList(){
+        do {
+            try context.save()
+        } catch {
+            print("Error loading saved items list due to: \(error)")
         }
         tableView.reloadData()
     }
@@ -89,10 +103,8 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
      
         items[indexPath.row].isComplete.toggle()
-        dataManager.saveData()
-        
-       // saveData()
-        tableView.reloadData()
+        loadList()
+
         tableView.deselectRow(at: indexPath, animated: true)
         
     }
@@ -109,10 +121,8 @@ extension HomeViewController: UISearchBarDelegate {
         request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
 
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: false)]
-        dataManager.loadListItems(using: request)
-        tableView.reloadData()
-        
-//        loadData(with: request)
+        self.loadList(using: request)
+
     }
     
   
@@ -120,10 +130,7 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
  
         if searchBar.text?.count == 0 {
-            dataManager.loadListItems()
-            tableView.reloadData()
-            //loadData()
-
+            loadList()
             
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()

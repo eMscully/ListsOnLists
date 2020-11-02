@@ -13,7 +13,7 @@ class CategoryViewController: UITableViewController {
         super.viewDidLoad()
         
         
-       loadCategoryList()
+       loadCategories()
         
   
     }
@@ -24,7 +24,18 @@ class CategoryViewController: UITableViewController {
         
     }
     
-    func loadCategoryList(with request:  NSFetchRequest<Category> = Category.fetchRequest()) {
+    
+    func saveCategory(){
+        do {
+            try context.save()
+        } catch {
+            print("Error loading saved items list due to: \(error)")
+        }
+        tableView.reloadData()
+    }
+
+    
+    func loadCategories(using request:  NSFetchRequest<Category> = Category.fetchRequest()) {
         
         do {
             categories = try context.fetch(request)
@@ -52,8 +63,7 @@ extension CategoryViewController {
             self.categories.append(newCategory)
             
             
-            self.dataManager.saveData()
-            self.tableView.reloadData()
+            self.saveCategory()
             
         }
         alert.addTextField { (alertTextField) in
@@ -74,30 +84,28 @@ extension CategoryViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
+        cell.textLabel?.textColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
         
-        let newCategory = categories[indexPath.row]
-        cell.textLabel?.text = newCategory.categoryName
+        
+        let category = categories[indexPath.row]
+        cell.textLabel?.text = category.categoryName
         
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //when user selects category this method should trigger a segue to the item list view controller that corresponds to its parent category
         
+        performSegue(withIdentifier: "goToListItems", sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let nextViewController = segue.destination as! HomeViewController
+            
+        if let indexPath = tableView.indexPathForSelectedRow {
+            nextViewController.selectedCategory = categories[indexPath.row]
+        }
     }
 }
-
-
-
-
-
-
-
-
-//MARK: - Temporarily commented out until ready to configure. Storing the segue identifier name for reference later
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//       segue identifier name is  goToListItems
-//
-//    }
 
 
