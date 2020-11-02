@@ -8,7 +8,7 @@ class CategoryViewController: UITableViewController {
     
 //   private let realm = try! Realm()
  
-   private var categories = [Category]()
+    private var categories : Results<Category>?
     private var category = Category()
     
     
@@ -21,11 +21,21 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
- 
-        
-//       loadCategories()
+        loadCategories()
+
         
   
+    }
+    
+    func loadCategories(){
+        do {
+            let realm = try Realm()
+            categories = realm.objects(Category.self)
+        } catch {
+            print("Error loading saved categories: \(error)")
+        }
+        tableView.reloadData()
+    
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -33,25 +43,7 @@ class CategoryViewController: UITableViewController {
         presentAlertTextField()
         
     }
-    
-    
-//    func save(category: Category){
-//
-//        do {
-//            try realm.write {
-//
-//                realm.add(category)
-//        }
-//    }
-//        catch {
-//            print("Error saving category: \(error)")
-//        }
-//        tableView.reloadData()
-//    }
-    
-//    func loadData(){
-//
-//    }
+
 
 }
 //MARK: - Created a UIAlert text field in extension to break up code. The method is invoked when add new category button is pressed.
@@ -66,11 +58,10 @@ extension CategoryViewController {
             
             let newCategory = Category()
             newCategory.categoryName = textField.text!
-            self.categories.append(newCategory)
+            
             self.category.save(category: newCategory)
             self.tableView.reloadData()
             
-          //  self.save(category: newCategory)
             
         }
         alert.addTextField { (alertTextField) in
@@ -86,7 +77,7 @@ extension CategoryViewController {
 extension CategoryViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return categories?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -94,8 +85,8 @@ extension CategoryViewController {
         cell.textLabel?.textColor = #colorLiteral(red: 0.5273327231, green: 0.1593059003, blue: 0.4471139908, alpha: 1)
         
         
-        let category = categories[indexPath.row]
-        cell.textLabel?.text = category.categoryName
+        
+        cell.textLabel?.text = categories?[indexPath.row].categoryName ?? "No categories added yet"
         
         
         return cell
@@ -107,10 +98,10 @@ extension CategoryViewController {
         performSegue(withIdentifier: "goToListItems", sender: self)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let nextViewController = segue.destination as! HomeViewController
+        let nextViewController = segue.destination as! ItemViewController
             
         if let indexPath = tableView.indexPathForSelectedRow {
-            nextViewController.selectedCategory = categories[indexPath.row]
+            nextViewController.selectedCategory = categories?[indexPath.row]
         }
     }
 }

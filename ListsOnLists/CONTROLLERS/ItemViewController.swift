@@ -2,7 +2,7 @@
 import UIKit
 import RealmSwift
 
-class HomeViewController: UITableViewController {
+class ItemViewController: UITableViewController {
     
 @IBOutlet weak var searchBar: UISearchBar!
     
@@ -17,17 +17,12 @@ class HomeViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-  //  var dataManager = DataModelManager.shared
-//    let context = DataModelManager.shared.context
+
    
 
 override func viewDidLoad() {
     super.viewDidLoad()
    
-    
-    
-    
-    //MARK: - Set search bar as first responder in view did load so that the search text field is focused and has a blinking cursor
     searchBar.becomeFirstResponder()
     }
     
@@ -93,7 +88,7 @@ override func viewDidLoad() {
 }
 //MARK: - EXTENSION FOR TABLE VIEW DELEGATE AND DATA SOURCE METHODS:
 
-extension HomeViewController {
+extension ItemViewController {
     
 override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
@@ -122,7 +117,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
     }
 }
 //MARK: - EXTENSION FOR SEARCH BAR DELEGATE METHODS
-extension HomeViewController: UISearchBarDelegate {
+extension ItemViewController: UISearchBarDelegate {
     
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

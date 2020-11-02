@@ -9,6 +9,8 @@ class Category: Object {
     //declare the forward relationship:
     let items = List<ListItem>()
     
+
+    
     func save(category: Category){
         do {
             let realm = try Realm()
@@ -19,5 +21,7 @@ class Category: Object {
             print("Error saving category: \(error)")
         }
     }
+    
+
     
 }
