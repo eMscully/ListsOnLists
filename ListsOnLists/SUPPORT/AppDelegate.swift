@@ -1,6 +1,7 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -8,7 +9,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    //    print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+       
+        print(Realm.Configuration.defaultConfiguration.fileURL)
+        
+        do {
+        let realm = try Realm()
+        } catch {
+            print("error initializing realm object: \(error)")
+        }
         return true
     }
 
