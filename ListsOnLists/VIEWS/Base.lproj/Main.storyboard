@@ -42,7 +42,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Lists on Lists!" id="Xkl-KO-SdB">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="UNE-Pj-L6s">
-                            <color key="tintColor" red="0.48616170879999998" green="0.18648374079999999" blue="0.43531203270000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addButtonPressed:" destination="Iog-I9-why" id="mfv-IZ-Rvf"/>
                             </connections>
@@ -82,6 +82,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Lists on Lists" id="nLx-0R-fw1">
                         <barButtonItem key="rightBarButtonItem" image="plus.viewfinder" catalog="system" id="ijf-ka-WGf">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addButtonPressed:" destination="Wcv-hg-YEZ" id="pge-Hk-Teu"/>
                             </connections>
@@ -100,7 +101,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d3g-Cb-V4K" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" backIndicatorImage="chevron.backward" catalog="system" id="jkS-Rf-Ysu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jkS-Rf-Ysu">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -122,7 +123,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="plus.viewfinder" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
