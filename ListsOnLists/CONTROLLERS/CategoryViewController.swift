@@ -14,12 +14,13 @@ class CategoryViewController: SwipeTableViewController {
    
 override func viewDidLoad() {
         super.viewDidLoad()
-    self.setStatusBarStyle(UIStatusBarStyleContrast)
+    self.navigationController?.hidesNavigationBarHairline = true
     let colors:[UIColor] = [
         UIColor.flatPowderBlueDark(), UIColor.flatMint(), UIColor.flatWhite()
     ]
-    view.backgroundColor = GradientColor(.leftToRight, frame: view.frame, colors: colors)
+    view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: colors)
 
+    navigationController?.navigationBar.backgroundColor = UIColor.flatGreen()
     
     loadCategories()
     tableView.separatorStyle = .singleLine
