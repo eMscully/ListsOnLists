@@ -2,11 +2,12 @@
 import UIKit
 import SwipeCellKit
 import ChameleonFramework
-//import RealmSwift
+
+
 
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate {
  
-  //  let realm = try! Realm()
+
     var cell: UITableViewCell?
     
     override func viewDidLoad() {

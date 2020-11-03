@@ -7,29 +7,52 @@ class ItemViewController: SwipeTableViewController {
     
 @IBOutlet weak var searchBar: UISearchBar!
 
-    private let realm = try! Realm()
-  
-    private var itemsList: Results<ListItem>?
-   
-    var selectedCategory: Category? {
-        didSet {
-            loadList()
-        }
-    }
+        let realm = try! Realm()
+        var itemsList: Results<ListItem>?
+        var selectedCategory: Category? {
+                didSet {
+                    loadList()
+                }
+            }
+    
 override func viewDidLoad() {
     super.viewDidLoad()
     searchBar.becomeFirstResponder()
     }
     
-    private func loadList(){
+//MARK: - Realm Data Manipulation Methods
+ func loadList(){
          itemsList = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
          tableView.reloadData()
         }
     
+    override func updateData(at indexPath: IndexPath) {
+        if let itemToDelete = self.itemsList?[indexPath.row] {
+            do {
+                try realm.write  {
+                    self.realm.delete(itemToDelete)
+                }
+            } catch {
+                print("Error deleting item due to: \(error)")
+            }
+        }
+    }
 
-  @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-            var textField = UITextField()
-            let alert = UIAlertController(title: "Add New Item", message: "", preferredStyle: .alert)
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        presentAlertTextField()
+        
+    }
+           
+}
+ //MARK: - EXTENSION ----> Alert Text Field
+extension ItemViewController {
+    
+    func presentAlertTextField(){
+        
+        var textField = UITextField()
+        
+    let alert = UIAlertController(title: "Add New Item", message: "", preferredStyle: .alert)
             let action = UIAlertAction(title: "Add", style: .default) { (action) in
                
                 
@@ -49,7 +72,7 @@ override func viewDidLoad() {
             }
 
         alert.addTextField { (alertTextField) in
-           textField = alertTextField
+            textField = alertTextField
             alertTextField.placeholder = "Create new item"
           }
         
@@ -59,20 +82,23 @@ override func viewDidLoad() {
 }
 }
 
+//MARK: - TableView Datasource and Delegate methods:
 extension ItemViewController {
 override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemsList?.count ?? 1
     }
     
 override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
     let cell = super.tableView(tableView, cellForRowAt: indexPath)
      
     if let item = itemsList?[indexPath.row] {
-        cell.textLabel?.text = item.title
-        cell.accessoryType = item.isComplete ? .checkmark : .none
+    cell.textLabel?.text = item.title
+    cell.accessoryType = item.isComplete ? .checkmark : .none
     } else {
-        cell.textLabel?.text = "Add first item"
+        cell.textLabel?.text =  "Add first item"
     }
+    
     return cell
     }
     

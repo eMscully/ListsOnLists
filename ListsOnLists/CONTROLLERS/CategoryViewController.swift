@@ -2,19 +2,19 @@
 import Foundation
 import UIKit
 import RealmSwift
-import ChameleonFramework
+
 
 
 class CategoryViewController: SwipeTableViewController {
 
      var categories : Results<Category>?
      var category = Category()
-    let realm = try! Realm()
+     let realm = try! Realm()
     
     
 override func viewDidLoad() {
         super.viewDidLoad()
-      //  view.backgroundColor = GradientColor(gradientStyle: UIGradientStyle.topToBottom, frame: CGRect(), colors: [UIColor.randomFlat()])
+       // view.backgroundColor = GradientColor(gradientStyle: UIGradientStyle.topToBottom, frame: CGRect(), colors: [UIColor.randomFlat()])
         
         loadCategories()
 
@@ -50,8 +50,6 @@ override func viewDidLoad() {
         }
     }
 }
-
-    
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
