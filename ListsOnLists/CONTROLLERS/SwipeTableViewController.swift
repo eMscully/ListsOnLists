@@ -1,20 +1,25 @@
 
 import UIKit
 import SwipeCellKit
+import ChameleonFramework
+//import RealmSwift
 
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate {
  
-
+  //  let realm = try! Realm()
     var cell: UITableViewCell?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
-
+//MARK: - This superclass method ensures that subclasses can use a SwipeTableViewCell in place of UITableViewCell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
        let cell = tableView.dequeueReusableCell(withIdentifier: "SwipeCell") as! SwipeTableViewCell
+        
         cell.delegate = self
+        
         return cell
     
     }
@@ -23,30 +28,27 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         guard orientation == .right else { return nil }
         
         let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            self.updateData(at: indexPath)
+        }
             
-            
-//            if let deleteCategory = self.categories?[indexPath.row] {
-//
-//            do {
-//              try self.realm.write {
-//                self.realm.delete(deleteCategory)
-//                }
-//
-//            } catch {
-//                print("Error deleting cell: \(error)")
-//            }
-//        }
-    }
-        
-        deleteAction.image = UIImage(named: "trash")
-        return [deleteAction]
-            }
-        
+            deleteAction.image = UIImage(named: "trash")
+            return [deleteAction]
+                }
+    
+
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
         var options = SwipeOptions()
         options.expansionStyle = .destructive
         
         return options
     }
+    
+    func updateData(at indexPath: IndexPath) {
+            
+    }
 
 }
+
+
+
+    

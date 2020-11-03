@@ -1,7 +1,7 @@
 
 import UIKit
 import RealmSwift
-
+import ChameleonFramework
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
