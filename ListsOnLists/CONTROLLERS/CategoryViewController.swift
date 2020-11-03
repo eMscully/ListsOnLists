@@ -2,7 +2,7 @@
 import Foundation
 import UIKit
 import RealmSwift
-
+import ChameleonFramework
 
 
 class CategoryViewController: SwipeTableViewController {
@@ -11,13 +11,19 @@ class CategoryViewController: SwipeTableViewController {
      var category = Category()
      let realm = try! Realm()
     
-    
+   
 override func viewDidLoad() {
         super.viewDidLoad()
-       // view.backgroundColor = GradientColor(gradientStyle: UIGradientStyle.topToBottom, frame: CGRect(), colors: [UIColor.randomFlat()])
-        
-        loadCategories()
+    self.setStatusBarStyle(UIStatusBarStyleContrast)
+    let colors:[UIColor] = [
+        UIColor.flatPowderBlueDark(), UIColor.flatMint(), UIColor.flatWhite()
+    ]
+    view.backgroundColor = GradientColor(.leftToRight, frame: view.frame, colors: colors)
 
+    
+    loadCategories()
+    tableView.separatorStyle = .singleLine
+    tableView.separatorColor = UIColor.flatPowderBlueDark()
     }
   //MARK: - Realm Data Manipulation methods
     
@@ -69,6 +75,8 @@ extension CategoryViewController {
            let newCategory = Category()
             newCategory.categoryName = textField.text!
             
+
+      //      newCategory.color = UIColor.randomFlat().hexValue()
             self.save(category: newCategory)
     
         }
@@ -90,11 +98,19 @@ extension CategoryViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        //since this view controller subclasses the swipe table view controller, access the superclass' functionality by tapping into super.tableView so you can use the SwipeTableViewCell type:
     let cell = super.tableView(tableView, cellForRowAt: indexPath)
-
         
-    cell.textLabel?.text = categories?[indexPath.row].categoryName ?? "No categories added yet"
+        if let category = categories?[indexPath.row] {
+            
+          //  cell.backgroundColor = UIColor(hexString: category.color)
+            cell.backgroundColor = UIColor.clear
+            cell.textLabel?.text = category.categoryName
+        } else {
+            cell.textLabel?.text = "No categories added yet"
+            cell.backgroundColor = UIColor(hexString: "")
+        }
+        
+
 
     return cell
         
