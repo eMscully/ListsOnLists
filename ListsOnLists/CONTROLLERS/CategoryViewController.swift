@@ -18,16 +18,16 @@ override func viewDidLoad() {
     self.navigationController?.hidesNavigationBarHairline = true
     
     let defaultColor:[UIColor] = [
-        FlatWhite(),FlatWhiteDark(), FlatGray(), FlatGrayDark(), FlatBlack()
+        FlatWhite(),FlatWhiteDark(), #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     ]
     view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: defaultColor)
-
-    
- //   navigationController?.navigationBar.backgroundColor = UIColor.flatGreen()
+    navigationController?.navigationBar.backgroundColor = .clear
+  
+ 
     
     loadCategories()
-    tableView.separatorStyle = .singleLine
-    tableView.separatorColor = UIColor.flatPowderBlueDark()
+    
+
     }
   //MARK: - Realm Data Manipulation methods
     
@@ -86,7 +86,12 @@ extension CategoryViewController {
         
         let gradientColorSchemes  = [green, yellow, pink, red, blue, purple, orange]
         view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: gradientColorSchemes.randomElement()!)
+        self.setStatusBarStyle(UIStatusBarStyleContrast)
+
+        
   }
+    
+    
 
 }
 //MARK: - EXTENSION ---> Alert Text Field

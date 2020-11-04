@@ -77,7 +77,7 @@ extension ItemViewController {
           }
         
         alert.addAction(action)
-            
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
 }
 }

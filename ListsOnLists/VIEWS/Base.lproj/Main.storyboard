@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Lists on Lists!-->
+        <!--Item View Controller-->
         <scene sceneID="LNz-W0-DYY">
             <objects>
                 <tableViewController id="Iog-I9-why" customClass="ItemViewController" customModule="ListsOnLists" customModuleProvider="target" sceneMemberID="viewController">
@@ -40,9 +40,9 @@
                             <outlet property="delegate" destination="Iog-I9-why" id="5g9-Dd-ZMy"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Lists on Lists!" id="Xkl-KO-SdB">
+                    <navigationItem key="navigationItem" id="Xkl-KO-SdB">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="UNE-Pj-L6s">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addButtonPressed:" destination="Iog-I9-why" id="mfv-IZ-Rvf"/>
                             </connections>
@@ -54,7 +54,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="thB-Lv-JrQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2293" y="-1598"/>
+            <point key="canvasLocation" x="-2481" y="-1666"/>
         </scene>
         <!--Lists on Lists-->
         <scene sceneID="otB-dG-4Gf">
@@ -82,13 +82,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Lists on Lists" id="nLx-0R-fw1">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="paintpalette" catalog="system" id="IMh-fh-8YV">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="changeColorSchemeButtonPresed:" destination="Wcv-hg-YEZ" id="dUc-Nh-2Af"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="plus.viewfinder" catalog="system" id="ijf-ka-WGf">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addButtonPressed:" destination="Wcv-hg-YEZ" id="pge-Hk-Teu"/>
                             </connections>
@@ -100,22 +100,25 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gaK-cW-giF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3617" y="-1589"/>
+            <point key="canvasLocation" x="-3303" y="-1666"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="60i-nW-ff2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d3g-Cb-V4K" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jkS-Rf-Ysu">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="jkS-Rf-Ysu">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="20"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -125,7 +128,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0fV-0Y-g3I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5270" y="-1533"/>
+            <point key="canvasLocation" x="-4054" y="-1666"/>
         </scene>
     </scenes>
     <resources>
