@@ -93,14 +93,24 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
     let cell = super.tableView(tableView, cellForRowAt: indexPath)
      
     if let item = itemsList?[indexPath.row] {
-    cell.textLabel?.text = item.title
-    cell.accessoryType = item.isComplete ? .checkmark : .none
-    } else {
+        
+        cell.backgroundColor = UIColor.flatPowderBlue().darken(byPercentage:
+                                                            CGFloat(Float(indexPath.row) / Float( itemsList!.count)))
+        
+        cell.textLabel?.textColor = UIColor(contrastingBlackOrWhiteColorOn: cell.backgroundColor!, isFlat:true)
+  
+        cell.textLabel?.text = item.title
+   
+        cell.accessoryType = item.isComplete ? .checkmark : .none
+        
+}   else {
+     
         cell.textLabel?.text =  "Add first item"
-    }
+}
     
     return cell
-    }
+   
+}
     
 override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let item = itemsList?[indexPath.row] {
