@@ -49,6 +49,23 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     func updateData(at indexPath: IndexPath) {
             
     }
+    
+    func changeUI() {
+ 
+        let green = [FlatPowderBlueDark(), FlatMint(), FlatWhite()]
+        let yellow = [FlatYellow(), FlatYellowDark(), FlatLimeDark(), FlatOrange()]
+        let pink = [FlatPink(),FlatPinkDark(),FlatWatermelon() ,FlatWhite()]
+        let red = [FlatRed(), FlatRedDark(), FlatWatermelon(), FlatWatermelonDark()]
+        let blue = [FlatSkyBlue(), FlatSkyBlueDark(), FlatBlueDark(), FlatBlue(), FlatWhite()]
+        let purple = [FlatPurple(), FlatPurpleDark(), FlatMagenta(), FlatMagentaDark()]
+        let orange = [FlatOrange(), FlatOrangeDark(), FlatYellow(), FlatYellowDark(), FlatRedDark()]
+        
+        let gradientColorSchemes  = [green, yellow, pink, red, blue, purple, orange]
+        view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: gradientColorSchemes.randomElement()!)
+
+        tableView.separatorStyle = .singleLine
+        tableView.separatorColor = UIColor(contrastingBlackOrWhiteColorOn: view.backgroundColor!, isFlat: true)
+  }
 
 }
 
