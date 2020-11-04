@@ -18,12 +18,16 @@ override func viewDidLoad() {
     self.navigationController?.hidesNavigationBarHairline = true
     
     let defaultColor:[UIColor] = [
-        FlatWhite(),FlatWhiteDark(), #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        FlatWhite(),FlatWhiteDark(), #colorLiteral(red: 0.2419321835, green: 0.4332072735, blue: 0.5136573911, alpha: 1)
     ]
     view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: defaultColor)
     navigationController?.navigationBar.backgroundColor = .clear
   
- 
+  //MARK: - Alert that tells user the color palette button will change gradient background color; click OK to exit alert
+    let changeColorAlert = UIAlertController(title: "Welcome!", message: "To change the background gradient color click the color palette button", preferredStyle: .alert)
+    changeColorAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+    present(changeColorAlert, animated: true, completion: nil)
+    
     
     loadCategories()
     
