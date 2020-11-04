@@ -59,7 +59,7 @@
         <!--Lists on Lists-->
         <scene sceneID="otB-dG-4Gf">
             <objects>
-                <tableViewController id="Wcv-hg-YEZ" customClass="CategoryViewController" customModule="ListsOnLists" customModuleProvider="target" propertyAccessControl="all" sceneMemberID="viewController">
+                <tableViewController id="Wcv-hg-YEZ" customClass="CategoryViewController" customModule="ListsOnLists" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" estimatedRowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" id="5ku-X5-WaC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -81,6 +81,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Lists on Lists" id="nLx-0R-fw1">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="paintpalette" catalog="system" id="IMh-fh-8YV">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="changeColorSchemeButtonPresed:" destination="Wcv-hg-YEZ" id="dUc-Nh-2Af"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="plus.viewfinder" catalog="system" id="ijf-ka-WGf">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -105,7 +111,7 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.38127973679999999" green="0.71832424399999995" blue="0.65490072970000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -123,6 +129,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="paintpalette" catalog="system" width="128" height="105"/>
         <image name="plus.viewfinder" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

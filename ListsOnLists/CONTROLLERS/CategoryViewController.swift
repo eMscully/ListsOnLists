@@ -14,13 +14,16 @@ class CategoryViewController: SwipeTableViewController {
    
 override func viewDidLoad() {
         super.viewDidLoad()
+    
     self.navigationController?.hidesNavigationBarHairline = true
-    let colors:[UIColor] = [
-        UIColor.flatPowderBlueDark(), UIColor.flatMint(), UIColor.flatWhite()
+    
+    let defaultColor:[UIColor] = [
+        FlatWhite(),FlatWhiteDark(), FlatGray(), FlatGrayDark(), FlatBlack()
     ]
-    view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: colors)
+    view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: defaultColor)
 
-    navigationController?.navigationBar.backgroundColor = UIColor.flatGreen()
+    
+ //   navigationController?.navigationBar.backgroundColor = UIColor.flatGreen()
     
     loadCategories()
     tableView.separatorStyle = .singleLine
@@ -62,6 +65,29 @@ override func viewDidLoad() {
         
         presentAlertTextField()
     }
+    
+    @IBAction func changeColorSchemeButtonPresed(_ sender: UIBarButtonItem) {
+        changeUI()
+    }
+    
+}
+
+//MARK: - EXTENSION ---> Changing background color scheme
+extension CategoryViewController {
+    func changeUI() {
+ 
+        let green = [FlatPowderBlueDark(), FlatMint(), FlatWhite()]
+        let yellow = [FlatYellow(), FlatYellowDark(), FlatLimeDark(), FlatOrange()]
+        let pink = [FlatPink(),FlatPinkDark(),FlatWatermelon() ,FlatWhite()]
+        let red = [FlatRed(), FlatRedDark(), FlatWatermelon(), FlatWatermelonDark()]
+        let blue = [FlatSkyBlue(), FlatSkyBlueDark(), FlatBlueDark(), FlatBlue(), FlatWhite()]
+        let purple = [FlatPurple(), FlatPurpleDark(), FlatMagenta(), FlatMagentaDark()]
+        let orange = [FlatOrange(), FlatOrangeDark(), FlatYellow(), FlatYellowDark(), FlatRedDark()]
+        
+        let gradientColorSchemes  = [green, yellow, pink, red, blue, purple, orange]
+        view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: gradientColorSchemes.randomElement()!)
+  }
+
 }
 //MARK: - EXTENSION ---> Alert Text Field
 extension CategoryViewController {
@@ -75,9 +101,6 @@ extension CategoryViewController {
             
            let newCategory = Category()
             newCategory.categoryName = textField.text!
-            
-
-      //      newCategory.color = UIColor.randomFlat().hexValue()
             self.save(category: newCategory)
     
         }
@@ -102,18 +125,17 @@ extension CategoryViewController {
 
     let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
-        if let category = categories?[indexPath.row] {
-            
-          //  cell.backgroundColor = UIColor(hexString: category.color)
+    if let category = categories?[indexPath.row] {
             cell.backgroundColor = UIColor.clear
+
+// Set the cell's text color property to contrast with whatever the gradient color of the entire background is (the text color does not depend on the CELL background)
+            cell.textLabel?.textColor = UIColor(contrastingBlackOrWhiteColorOn: view.backgroundColor!, isFlat: true)
+           
             cell.textLabel?.text = category.categoryName
-        } else {
-            cell.textLabel?.text = "No categories added yet"
-            cell.backgroundColor = UIColor(hexString: "")
         }
-        
-
-
+        else {
+            cell.textLabel?.text = "No categories added yet"
+        }
     return cell
         
     }
