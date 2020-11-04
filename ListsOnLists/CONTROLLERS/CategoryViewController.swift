@@ -11,29 +11,26 @@ class CategoryViewController: SwipeTableViewController {
      var category = Category()
      let realm = try! Realm()
     
-   
-override func viewDidLoad() {
+   override func viewDidLoad() {
         super.viewDidLoad()
-    
-    self.navigationController?.hidesNavigationBarHairline = true
-    
-    let defaultColor:[UIColor] = [
-        FlatWhite(),FlatWhiteDark(), #colorLiteral(red: 0.2419321835, green: 0.4332072735, blue: 0.5136573911, alpha: 1)
-    ]
-    view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: defaultColor)
-    navigationController?.navigationBar.backgroundColor = .clear
   
+            loadCategories()
+    
+        let defaultColor:[UIColor] = [FlatWhite(),FlatWhiteDark(), #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)]
+  
+        view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: defaultColor)
+    
+        self.navigationController?.hidesNavigationBarHairline = true
+
+    setStatusBarStyle(.darkContent)
+    
   //MARK: - Alert that tells user the color palette button will change gradient background color; click OK to exit alert
     let changeColorAlert = UIAlertController(title: "Welcome!", message: "To change the background gradient color click the color palette button", preferredStyle: .alert)
     changeColorAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
     present(changeColorAlert, animated: true, completion: nil)
-    
-    
-    loadCategories()
-    
 
     }
-  //MARK: - Realm Data Manipulation methods
+//MARK: - Realm Data Manipulation methods
     
  func loadCategories(){
         categories = realm.objects(Category.self)
@@ -50,21 +47,21 @@ override func viewDidLoad() {
         }
         tableView.reloadData()
     }
-    
     //Use the superclass updateData model and override it in order to create a delete Realm data method for this view controller:
     
-    override func updateData(at indexPath: IndexPath) {
+override func updateData(at indexPath: IndexPath) {
     if let categoryToDelete = self.categories?[indexPath.row] {
-        do {
+            do {
             try self.realm.write {
                 self.realm.delete(categoryToDelete)
-            }
+                }
         } catch {
             print("Error deleting category due to: \(error)")
         }
     }
 }
-
+//MARK: - Bar button actions
+    
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
         presentAlertTextField()
@@ -74,29 +71,6 @@ override func viewDidLoad() {
         changeUI()
     }
     
-}
-
-//MARK: - EXTENSION ---> Changing background color scheme
-extension CategoryViewController {
-    func changeUI() {
- 
-        let green = [FlatPowderBlueDark(), FlatMint(), FlatWhite()]
-        let yellow = [FlatYellow(), FlatYellowDark(), FlatLimeDark(), FlatOrange()]
-        let pink = [FlatPink(),FlatPinkDark(),FlatWatermelon() ,FlatWhite()]
-        let red = [FlatRed(), FlatRedDark(), FlatWatermelon(), FlatWatermelonDark()]
-        let blue = [FlatSkyBlue(), FlatSkyBlueDark(), FlatBlueDark(), FlatBlue(), FlatWhite()]
-        let purple = [FlatPurple(), FlatPurpleDark(), FlatMagenta(), FlatMagentaDark()]
-        let orange = [FlatOrange(), FlatOrangeDark(), FlatYellow(), FlatYellowDark(), FlatRedDark()]
-        
-        let gradientColorSchemes  = [green, yellow, pink, red, blue, purple, orange]
-        view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: gradientColorSchemes.randomElement()!)
-        self.setStatusBarStyle(UIStatusBarStyleContrast)
-
-        
-  }
-    
-    
-
 }
 //MARK: - EXTENSION ---> Alert Text Field
 extension CategoryViewController {
@@ -136,8 +110,6 @@ extension CategoryViewController {
         
     if let category = categories?[indexPath.row] {
             cell.backgroundColor = UIColor.clear
-
-// Set the cell's text color property to contrast with whatever the gradient color of the entire background is (the text color does not depend on the CELL background)
             cell.textLabel?.textColor = UIColor(contrastingBlackOrWhiteColorOn: view.backgroundColor!, isFlat: true)
            
             cell.textLabel?.text = category.categoryName
@@ -162,6 +134,7 @@ extension CategoryViewController {
         if let indexPath = tableView.indexPathForSelectedRow {
             nextViewController.selectedCategory = categories?[indexPath.row]
         }
+
     }
 }
 

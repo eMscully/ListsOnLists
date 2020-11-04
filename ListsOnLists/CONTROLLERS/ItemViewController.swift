@@ -18,6 +18,15 @@ class ItemViewController: SwipeTableViewController {
 override func viewDidLoad() {
     super.viewDidLoad()
     searchBar.becomeFirstResponder()
+    changeUI()
+    self.navigationController?.hidesNavigationBarHairline = true
+
+    searchBar.searchTextField.textColor = .white
+    
+    }
+   
+    override func viewWillAppear(_ animated: Bool) {
+        title = selectedCategory?.categoryName ?? "Lists on Lists"        
     }
     
 //MARK: - Realm Data Manipulation Methods
@@ -94,8 +103,8 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
      
     if let item = itemsList?[indexPath.row] {
         
-        cell.backgroundColor = UIColor.flatPowderBlue().darken(byPercentage:
-                                                            CGFloat(Float(indexPath.row) / Float( itemsList!.count)))
+        
+        cell.backgroundColor = view.backgroundColor
         
         cell.textLabel?.textColor = UIColor(contrastingBlackOrWhiteColorOn: cell.backgroundColor!, isFlat:true)
   
